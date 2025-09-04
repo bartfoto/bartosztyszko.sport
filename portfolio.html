@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bartosz Tyszko — Portfolio</title>
+  <style>
+    :root { --bg:#0b0d10; --fg:#e7e9ee; --muted:#a7afbf; --accent:#1fa169; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--fg); }
+    header, footer { background:#0f1318; }
+    .wrap { max-width: 1200px; margin:0 auto; padding:0 20px; }
+    header .bar { display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:16px; }
+    header img.logo { height:125px; }
+    nav a { color:var(--fg); text-decoration:none; margin-left:16px; padding:8px 12px; border-radius:10px; }
+    nav a:hover, nav a.active { background:#151a21; color:var(--accent); }
+    main { padding: 42px 0 64px; }
+    h1 { margin: 0 0 18px; font-size: clamp(26px, 3.5vw, 40px); }
+    p.lead { color:var(--muted); margin: 0 0 24px; }
+
+    /* GALERIA */
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:18px;
+    }
+    @media (max-width: 950px){ .grid{ grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 620px){ .grid{ grid-template-columns: 1fr;} }
+
+    .tile {
+      position: relative; overflow: hidden; border-radius: 16px;
+      background:#11161d; border:1px solid #1b222c;
+      cursor: zoom-in;
+    }
+    .tile img {
+      width:100%; height: 260px; object-fit: cover; display:block;
+      transform: scale(1); transition: transform .35s ease;
+    }
+    .tile:hover img { transform: scale(1.08); }
+
+    /* Overlay z opisem — Arial Italic */
+    .caption {
+      position:absolute; inset:auto 0 0 0;
+      background: linear-gradient(transparent, rgba(0,0,0,.6));
+      color: #fff; padding: 14px 16px; opacity: 0; transform: translateY(8px);
+      transition: opacity .25s ease, transform .25s ease;
+      font-family: Arial, Helvetica, sans-serif; font-style: italic;
+      pointer-events: none;
+    }
+    .tile:hover .caption { opacity:1; transform: translateY(0); }
+
+    /* MODAL 70% VIEWPORT + BLUR TŁA */
+    .backdrop {
+      position: fixed; inset: 0; display:none; align-items:center; justify-content:center;
+      background: rgba(5,8,12,.35);
+      backdrop-filter: blur(6px);
+      z-index: 999;
+      padding: 24px;
+    }
+    .backdrop.show { display:flex; }
+    .modal {
+      width: min(70vw, 1200px);
+      max-height: 90vh; overflow:auto;
+      background:#0f1318; border:1px solid #1b222c; border-radius:18px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.6);
+    }
+    .modal img { width:100%; height:auto; display:block; border-radius: 18px 18px 0 0; }
+    .modal .meta { padding: 14px 18px; color: var(--muted); font-family: Arial, Helvetica, sans-serif; font-style: italic; }
+    .close {
+      position:absolute; top:14px; right:18px; background:transparent; border:none; color:#cdd6e5;
+      font-size:28px; cursor:pointer; line-height:1;
+    }
+    footer { color:#95a1b5; text-align:center; padding:22px 0; font-size:14px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="img/logo.png" alt="Bartosz Tyszko - BartFoto" class="logo" />
+        <strong>Bartosz Tyszko - BartFoto</strong>
+      </div>
+      <nav>
+        <a href="index.html">O mnie</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="oferta.html">Oferta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Moje najlepsze zdjęcia</h1>
+    <p class="lead">Wybrane kadry z ostatnich meczów — emocje, tempo i detale boiskowej walki.</p>
+
+    <div class="grid" id="gallery">
+      <!-- Przykładowe pozycje — podmień src i opis -->
+      <figure class="tile" data-caption="Debiut Arkadiusza Recy w barwach Legii Warszawa - v. Arka Gdynia">
+        <img src="img/photo2.jpg" alt="Gol w doliczonym czasie gry" />
+        <figcaption class="caption">Arkadiusz Reca - Legia Warszawa</figcaption>
+      </figure>
+
+      <figure class="tile" data-caption="Michał Pazdan - Wieczysta Kraków">
+        <img src="img/photo3.jpg" alt="Radość trybun po zwycięstwie" />
+        <figcaption class="caption">Michał Pazdan - Wieczysta Kraków</figcaption>
+      </figure>
+
+      <figure class="tile" data-caption="Mileta Rajovic i Ruben Vinagre - Legia Warszawa">
+        <img src="img/photo4.jpg" alt="Pojedynek główkowy" />
+        <figcaption class="caption">Mileta Rajovic i Ruben Vinagre - Legia Warszawa</figcaption>
+      </figure>
+
+      <figure class="tile" data-caption="Strzał Piotra Zielińskiego zakończony golem">
+        <img src="img/photo5.jpg" alt="Piotr Zieliński" />
+        <figcaption class="caption">Strzał Piotra Zielińskiego zakończony golem</figcaption>
+      </figure>
+
+      <figure class="tile" data-caption="ŁKS - Lech">
+        <img src="img/photo6.jpg" alt="Interwencja bramkarza" />
+        <figcaption class="caption">Riza Durmisi - ŁKS Łódź”</figcaption>
+      </figure>
+
+      <figure class="tile" data-caption="Cristiano Ronaldo - Warszawa">
+        <img src="img/photo7.jpg" alt="Cristiano Ronaldo w Warszawie" />
+        <figcaption class="caption">Cristiano Ronaldo - Stadion Narodowy, Warszawa”</figcaption>
+      </figure>
+
+    </div>
+  </main>
+
+  <!-- Backdrop + Modal -->
+  <div class="backdrop" id="backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Podgląd zdjęcia">
+      <button class="close" id="closeBtn" aria-label="Zamknij">×</button>
+      <img id="modalImg" src="" alt="" />
+      <div class="meta" id="modalCaption"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="wrap">© <span id="y"></span> Bartosz Tyszko - Wszelkie prawa zastrzeżone.</div>
+  </footer>
+
+  <script>
+    // Rok w stopce
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Modal / Lightbox
+    const gallery = document.getElementById('gallery');
+    const backdrop = document.getElementById('backdrop');
+    const modalImg = document.getElementById('modalImg');
+    const modalCaption = document.getElementById('modalCaption');
+    const closeBtn = document.getElementById('closeBtn');
+
+    function openModal(src, alt, caption){
+      modalImg.src = src;
+      modalImg.alt = alt || '';
+      modalCaption.textContent = caption || alt || '';
+      backdrop.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      backdrop.classList.remove('show');
+      document.body.style.overflow = '';
+      // czyścimy po animacji (opcjonalnie)
+      setTimeout(()=>{ modalImg.src=''; modalCaption.textContent=''; }, 200);
+    }
+
+    // Otwieranie po kliknięciu w miniaturę
+    gallery.addEventListener('click', (e)=>{
+      const fig = e.target.closest('.tile');
+      if(!fig) return;
+      const img = fig.querySelector('img');
+      const caption = fig.dataset.caption || img.alt;
+      openModal(img.src, img.alt, caption);
+    });
+
+    // Zamknięcia
+    closeBtn.addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e)=>{ if(e.target === backdrop) closeModal(); });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && backdrop.classList.contains('show')) closeModal(); });
+  </script>
+</body>
+</html>

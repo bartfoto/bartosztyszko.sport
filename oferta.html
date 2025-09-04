@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bartosz Tyszko — Oferta</title>
+  <style>
+    :root { --bg:#0b0d10; --fg:#e7e9ee; --muted:#a7afbf; --accent:#1fa169; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:var(--bg); color:var(--fg); }
+    header, footer { background:#0f1318; }
+    .wrap { max-width: 1100px; margin:0 auto; padding:0 20px; }
+    header .bar { display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:16px; }
+    header img.logo { height:120px; }
+    nav a { color:var(--fg); text-decoration:none; margin-left:16px; padding:8px 12px; border-radius:10px; }
+    nav a:hover, nav a.active { background:#151a21; color:var(--accent); }
+    main { padding: 42px 0 64px; }
+    h1 { margin: 0 0 18px; font-size: clamp(26px, 3.5vw, 40px); }
+    p.lead { color:var(--muted); margin: 0 0 28px; }
+
+    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 620px){ .grid{ grid-template-columns: 1fr; } }
+
+    .card {
+      background:#11161d; border:1px solid #1b222c; border-radius:18px; padding:22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      display:flex; flex-direction:column; gap:10px;
+    }
+    .price { font-size: 28px; font-weight: 800; color: var(--accent); }
+    ul { margin:0; padding-left: 18px; color: var(--muted); }
+    .cta { background: var(--accent); color:#07130e; font-weight:700; padding:12px 16px; border:none; border-radius:12px; cursor:pointer; }
+    .note { color:#9fb0c9; font-size: 14px; margin-top: 10px; }
+    .row { display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+    @media (max-width: 800px){ .row{ grid-template-columns: 1fr; } }
+
+    footer { color:#95a1b5; text-align:center; padding:22px 0; font-size:14px; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap bar">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="img/logo.png" alt=Bartosz Tyszko - BartFoto" class="logo" />
+        <strong>Bartosz Tyszko - BartFoto</strong>
+      </div>
+      <nav>
+        <a href="index.html">O mnie</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="oferta.html" class="active">Oferta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Oferta i cennik</h1>
+    <p class="lead">Poniżej znajdziesz przykładowe pakiety. Wystawiam FV, możliwe doraźne lub stałe współprace klubowe.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Pakiet Basic</h3>
+        <div class="price">od 350 PLN</div>
+        <ul>
+          <li>Do 30 zdjęć z meczu</li>
+          <li>Podstawowa obróbka (kolor/kontrast)</li>
+          <li>Dostawa do 48h</li>
+        </ul>
+        <button class="cta" onclick="contact()">Zapytaj o termin</button>
+      </div>
+
+      <div class="card">
+        <h2>Współpraca klubowa</h2>
+        <p>Pełna obsługa fotograficzna sezonu / rundy</p>
+        <p class="price">wycena indywidualna</p>
+      </div>
+      <div class="card">
+        <h2>Fotografia dla zawodników</h2>
+        <p>Personalne zdjęcia meczowe i wizerunkowe</p>
+        <p class="price">wycena indywidualna</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <h3>Stała współpraca klubowa</h3>
+        <ul>
+          <li>Reportaż meczowy (dom/wyjazd)</li>
+          <li>Treningi, portrety, kulisy</li>
+          <li>Materiały do social & PR</li>
+        </ul>
+        <p class="note">Wycena indywidualna — dopasuję zakres do potrzeb klubu.</p>
+      </div>
+      <div class="card">
+        <h3>Dodatki</h3>
+        <ul>
+          <li>Licencje rozszerzone / wyłączność</li>
+          <li>Krótkie wideo / reels (na życzenie)</li>
+          <li>Doświadczenie w pracy przy sztucznym i dziennym świetle</li>
+        </ul>
+        <p class="note">Napisz, czego potrzebujesz — doradzę optymalny pakiet.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">© <span id="y"></span> Bartosz Tyszko - BartFoto </div>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+    function contact(){
+      window.location.href = "mailto:bartosztyszko.fotografia@gmail.com?subject=Zapytanie%20o%20termin%20—%20Tyszko%20Photography";
+    }
+  </script>
+</body>
+</html>
